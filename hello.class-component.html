@@ -23,21 +23,32 @@
     // create player 
     // using functional component
     // prepare player
-    function Player(data) {
-        var player = <div className="player">
-            <h2>Hi this {data.name},I am from {data.location}.and my run is {data.run}.</h2>
-        </div>
-        return player;
-    }
+    // function Player(data) {
+    //     var player = <div className="player">
+    //         <h2>Hi this {data.name},I am from {data.location}.and my run is {data.run}.</h2>
+    //     </div>
+    //     return player;
+    // }
     // class componenet
     class Hello extends React.Component {
+        constructor() {
+            super();
+        }
+
+        render() {
+            var player = <h2>Hi this I am from and my run is.</h2>
+            return player;
+        }
 
     }
+    // var obj = new Hello();
+
     // get container
     var container = ReactDOM.createRoot(document.getElementById('root'));
 
     // render container
-    container.render(<Player name="Virat" location="Delhi" run="100000" />);
+    // container.render(<Player name="Virat" location="Delhi" run="100000" />);
+    container.render(<Hello />);
 
 
 </script>
