@@ -1,0 +1,43 @@
+<style>
+    .box {
+        width: 100px;
+        height: 100px;
+        border: 2px solid red;
+        display: inline-block;
+        line-height: 100px;
+        text-align: center;
+    }
+
+    #root {
+        text-align: center;
+    }
+</style>
+<script src="react.development.js"></script>
+<script src="react-dom.development.js"></script>
+<script src="babel.min.js"></script>
+<!--Create container-->
+<div id="root">
+</div>
+
+<script type="text/babel">
+    // create player 
+    // using functional component
+    // prepare player
+    function Player(data) {
+        var player = <div className="player">
+            <h2>Hi this {data.name},I am from {data.location}.and my run is {data.run}.</h2>
+        </div>
+        return player;
+    }
+    // class componenet
+    class Hello extends React.Component {
+
+    }
+    // get container
+    var container = ReactDOM.createRoot(document.getElementById('root'));
+
+    // render container
+    container.render(<Player name="Virat" location="Delhi" run="100000" />);
+
+
+</script>
