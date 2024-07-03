@@ -1,0 +1,136 @@
+<style>
+    .box {
+        width: 100px;
+        height: 100px;
+        border: 2px solid red;
+        display: inline-block;
+        line-height: 100px;
+        text-align: center;
+    }
+
+    #root {
+        text-align: center;
+    }
+</style>
+<script src="react.development.js"></script>
+<script src="react-dom.development.js"></script>
+<script src="babel.min.js"></script>
+<link href="bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+<script src="bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+<!--Create container-->
+<div id="root">
+</div>
+
+<script type="text/babel">
+
+    class Login extends React.Component {
+        // constructor() {
+        //     super();
+        //     console.log("constructor Object", this);
+
+        //     // using bind method
+        //     this.onAdd = this.onAdd.bind(this);
+        // }
+        data = {};
+        state = {
+            sumResult: 0
+        }
+        onAdd = () => {
+            // let refNumber1 = this.refs.number1.value;
+            // let refNumber2 = this.refs.number2.value;
+            // let result = Number(refNumber1) + Number(refNumber2);
+            // var resultRef = this.refs.result;
+            // resultRef.innerText = result;
+            // destrcuting
+            console.log("sum", this.data);
+            const { no1, no2 } = this.data;
+            let sum = no1 + no2;
+            this.setState({
+                sumResult: sum
+            });
+            console.log("sum", sum);
+        }
+
+        fnChanges = (event) => {
+            // this.val = event.target.value;
+            // let val = event.target.value;
+            // let id = event.target.id;
+            //destructring
+            const { id, value } = event.target;
+            this.data[id] = Number(value);
+            // console.log(this.data);
+        }
+        // using by call/apply/bind method
+        // onAdd = () => {
+        //     let refNumber1 = this.refs.number1.value;
+        //     let refNumber2 = this.refs.number2.value;
+        //     let result = Number(refNumber1) + Number(refNumber2);
+        //     var resultRef = this.refs.result;
+        //     resultRef.innerText = result;
+        //     console.log("Add Object", this);
+        // }
+        render() {
+            console.log(this);
+            return <div className="player">
+                <h2 className="m-5">Addtion Calulator </h2>
+                <div>
+                    <div className="row mb-3">
+                        <div className="col-6 text-end">
+                            <b>
+                                Number 1:
+                            </b>
+                        </div>
+                        <div className="col-6 text-start">
+                            {/*  <input type="number" name="" id="" placeholder="number1" ref="number1" />*/}
+                            <input type="number" name="" id="no1" onChange={this.fnChanges} />
+                        </div>
+                    </div>
+                    <div className="row mb-3">
+                        <div className="col-6 text-end">
+                            <b>
+                                Number 2:
+                            </b>
+                        </div>
+                        <div className="col-6 text-start">
+                            {/* <input type="number" name="" id="" placeholder="number2" ref="number2" />*/}
+                            <input type="number" name="" id="no2" onChange={this.fnChanges} />
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col-6 text-end">
+                        </div>
+                        <div className="col-6 text-start">
+                            { /* that is bind method use with normanl function
+                            <button className="btn btn-primary" type="button" onClick={this.onAdd}>SUM</button> */ }
+                            { /* using bind method pass data <button className="btn btn-primary" type="button" onClick={this.onAdd.bind(this)}>SUM</button> */}
+                            {/* using for arrow function*/}
+                            <button className="btn btn-primary" type="button" onClick={this.onAdd}>SUM</button>
+                        </div>
+                    </div>
+                </div>
+                <h1>{this.state.sumResult}</h1>
+            </div>
+        }
+    }
+
+    class App extends React.Component {
+        render() {
+            var appplayer = <div className="div">
+                <Login />
+            </div>
+            return appplayer;
+        }
+    }
+    // get container
+    var container = ReactDOM.createRoot(document.getElementById('root'));
+
+    // render container
+    container.render(<App />);
+
+
+
+
+</script>
