@@ -1,0 +1,118 @@
+<script src="react.development.js"></script>
+<script src="react-dom.development.js"></script>
+<script src="babel.min.js"></script>
+<link rel="stylesheet" href="bootstrap.min.css">
+<script src="bootstrap.bundle.min.js"></script>
+<style>
+    .box {
+        width: 100px;
+        height: 100px;
+        border: 2px solid red;
+        display: inline-block;
+        line-height: 100px;
+        text-align: center;
+    }
+
+    #root {
+        text-align: center;
+    }
+</style>
+
+<div id="root">
+
+</div>
+
+<script type="text/babel">
+
+    class CheckPrime extends React.Component {
+        data = 0;
+        state = {
+            msg: '',
+            primes: 0
+        }
+
+        fnChanges = (event) => {
+            this.data = event.target.value;
+        }
+
+        onSubmit = () => {
+
+            let isPrime = this.checkPrime(this.data);
+            let totalPrime = [];
+            for (let i = 1; i <= this.data; i++) {
+                if (this.checkPrime(i)) {
+                    totalPrime.push(i);
+                }
+            }
+            this.setState({
+                primes: totalPrime.join()
+            })
+
+            if (isPrime) {
+                this.setState({
+                    msg: 'A Prime Number'
+                })
+            }
+            else {
+                this.setState({
+                    msg: 'Not Prime Number'
+                })
+
+            }
+            console.log(this.state);
+
+        }
+        checkPrime(no) {
+            let factor = 0;
+            for (let i = 1; i <= no; i++) {
+                if (no % i === 0) {
+                    factor++;
+                }
+            }
+            if (factor === 2) {
+                return true;
+            }
+            else {
+                return false;
+            }
+
+        }
+
+        render() {
+            return <div className="player">
+                <h2 className="m-5"> Check Prime Number </h2>
+                <div>
+                    <div className="row mb-3">
+                        <div className="col-6 text-end">
+                            <b>
+                                Number:
+                            </b>
+                        </div>
+                        <div className="col-6 text-start">
+                            <input type="number" name="" id="number" onChange={this.fnChanges} />
+                        </div>
+                    </div>
+
+                    <div className="row">
+                        <div className="col-6 text-end">
+                        </div>
+                        <div className="col-6 text-start">
+                            <button className="btn btn-primary" type="button" onClick={this.onSubmit}>Submit</button>
+                        </div>
+                    </div>
+                </div>
+                <h1>{this.state.msg}</h1>
+                <h1>{this.state.primes}</h1>
+            </div>
+        }
+    }
+    class App extends React.Component {
+        render() {
+            return <CheckPrime />
+        }
+    }
+
+    let container = ReactDOM.createRoot(document.getElementById('root'));
+    container.render(<App />);
+
+</script>
