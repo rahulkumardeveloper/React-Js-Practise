@@ -1,0 +1,100 @@
+<style>
+    .box {
+        width: 100px;
+        height: 100px;
+        border: 2px solid red;
+        display: inline-block;
+        line-height: 100px;
+        text-align: center;
+    }
+
+    #root {
+        text-align: center;
+    }
+</style>
+<script src="react.development.js"></script>
+<script src="react-dom.development.js"></script>
+<script src="babel.min.js"></script>
+<link href="bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+<script src="bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+<!--Create container-->
+<div id="root">
+</div>
+
+<script type="text/babel">
+
+    const Airthematic = () => {
+        //use hooks concept
+        //in functional component for state managemnet shuld use useState();
+        const [data, setData] = React.useState({ number1: 0, number2: 0 })
+        const [colorName, setColor] = React.useState('red')
+        const [result, setResult] = React.useState(0);
+
+        const fnChanges = (event) => {
+            const { id, value } = event.target;
+            setData((preData) => ({
+                ...preData,
+                [id]: Number(value)
+            })
+            );
+            // data[id] = Number(value);
+            console.log(data);
+        }
+        const onAdd = () => {
+            const { number1, number2 } = data;
+            let sum = number1 + number2;
+            // result = sum;
+            setResult(sum);
+            if (sum > 50) {
+                setColor('green');
+            }
+            // console.log("result", result);
+        }
+        return <div className="player">
+            <h2 className="m-5">Sum of Two Number </h2>
+            <div>
+                <div className="row mb-3">
+                    <div className="col-6 text-end">
+                        <b>
+                            Number 1:
+                        </b>
+                    </div>
+                    <div className="col-6 text-start">
+                        <input type="number" name="" id="number1" placeholder="number1" onChange={fnChanges} />
+                    </div>
+                </div>
+                <div className="row mb-3">
+                    <div className="col-6 text-end">
+                        <b>
+                            Number 2:
+                        </b>
+                    </div>
+                    <div className="col-6 text-start">
+                        <input type="number" name="" id="number2" placeholder="number2" onChange={fnChanges} />
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col-6 text-end">
+                    </div>
+                    <div className="col-6 text-start">
+                        <button className="btn btn-primary" type="button" onClick={onAdd}>SUM</button>
+                    </div>
+                </div>
+                <h1 style={{ color: colorName }} >{result}</h1>
+
+            </div>
+        </div>
+    }
+    // get container
+    var container = ReactDOM.createRoot(document.getElementById('root'));
+
+    // render container
+    container.render(<Airthematic />);
+
+
+
+
+</script>
