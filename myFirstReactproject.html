@@ -44,6 +44,12 @@
     .resultDiv {
         text-align: center
     }
+
+    .activemenuItem {
+        color: red;
+        text-decoration: underline;
+        font-size: 25px;
+    }
 </style>
 
 <div id="root">
@@ -68,9 +74,9 @@
         render() {
             return <div>
                 <ul className="menu" onClick={this.onFnClick}>
-                    <li id='home'>Home</li>
-                    <li id='about'>About</li>
-                    <li id='contact'>Contact</li>
+                    <li id='home' className={this.state.menuItem === 'home' && 'activemenuItem'}>Home</li>
+                    <li id='about' className={this.state.menuItem === 'about' && 'activemenuItem'}>About</li>
+                    <li id='contact' className={this.state.menuItem === 'contact' && 'activemenuItem'}>Contact</li>
                 </ul>
                 <h1 className="resultDiv">
                     {/*condition rendering*/}
@@ -83,30 +89,30 @@
         }
     }
     const Home = () => {
-        return <div><table class="table">
+        return <div><table className="table">
             <thead>
                 <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">First</th>
-                    <th scope="col">Last</th>
-                    <th scope="col">Handle</th>
+                    <th>#</th>
+                    <th>First</th>
+                    <th>Last</th>
+                    <th>Handle</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <th scope="row">1</th>
+                    <th>1</th>
                     <td>Mark</td>
                     <td>Otto</td>
                     <td>@mdo</td>
                 </tr>
                 <tr>
-                    <th scope="row">2</th>
+                    <th>2</th>
                     <td>Jacob</td>
                     <td>Thornton</td>
                     <td>@fat</td>
                 </tr>
                 <tr>
-                    <th scope="row">3</th>
+                    <th>3</th>
                     <td>Larry</td>
                     <td>the Bird</td>
                     <td>@twitter</td>
