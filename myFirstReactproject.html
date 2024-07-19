@@ -50,6 +50,33 @@
         text-decoration: underline;
         font-size: 25px;
     }
+
+    .mobile-menu-btn {
+        position: absolute;
+        right: 0;
+    }
+
+    .menu-mobile-view {
+        position: absolute;
+        width: 150px;
+        text-align: center;
+        display: inline-block;
+        top: 45px;
+        transition: left 2s;
+        text-align: justify;
+    }
+
+
+    .menu-mobile-view>li {
+        display: block;
+    }
+
+
+    @media screen and (max-width:600px) {
+        .header {
+            font-size: 30px;
+        }
+    }
 </style>
 
 <div id="root">
@@ -58,31 +85,56 @@
 <script type="text/babel">
 
     class Menu extends React.Component {
+
         state = {
-            menuItem: 'home'
+            menuItem: 'home',
+            isMobileView: document.body.offsetWidth < 600 ? true : false,
+            left: -150
         }
+        constructor() {
+            super();
+            window.addEventListener('resize', () => {
+                let width = document.body.offsetWidth;
+                this.setState({
+                    isMobileView: width < 600 ? true : false
+                });
+            })
+        }
+
         onFnClick = (event) => {
             event.stopPropagation();
             const { id, tagName } = event.target
             console.log(tagName);
             if (tagName == 'UL') return;
             this.setState({
-                menuItem: id
+                menuItem: id,
+                left: this.state.left === -150 ? 0 : -150
             })
 
         }
+        funMenubtnclick = () => {
+            this.setState({
+                left: this.state.left === -150 ? 0 : -150
+            })
+        }
         render() {
+            const { menuItem, isMobileView, left } = this.state;
             return <div>
-                <ul className="menu" onClick={this.onFnClick}>
-                    <li id='home' className={this.state.menuItem === 'home' && 'activemenuItem'}>Home</li>
-                    <li id='about' className={this.state.menuItem === 'about' && 'activemenuItem'}>About</li>
-                    <li id='contact' className={this.state.menuItem === 'contact' && 'activemenuItem'}>Contact</li>
+                {isMobileView &&
+                    <button type="button" className="btn btn-primary mobile-menu-btn" onClick={this.funMenubtnclick}>
+                        Menu
+                    </button>
+                }
+                <ul style={{ left }} className={`${isMobileView && 'menu-mobile-view'} menu`} onClick={this.onFnClick}>
+                    <li id='home' className={menuItem === 'home' && 'activemenuItem'}>Home</li>
+                    <li id='about' className={menuItem === 'about' && 'activemenuItem'}>About</li>
+                    <li id='contact' className={menuItem === 'contact' && 'activemenuItem'}>Contact</li>
                 </ul>
                 <h1 className="resultDiv">
                     {/*condition rendering*/}
-                    {this.state.menuItem === 'home' && <Home />}
-                    {this.state.menuItem === 'about' && <About />}
-                    {this.state.menuItem === 'contact' && <Contact />}
+                    {menuItem === 'home' && <Home />}
+                    {menuItem === 'about' && <About />}
+                    {menuItem === 'contact' && <Contact />}
 
                 </h1>
             </div>
