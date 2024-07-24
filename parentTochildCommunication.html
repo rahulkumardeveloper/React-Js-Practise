@@ -12,16 +12,24 @@
     const ChildComponent = (props) => {
 
         return <div>
-
             <h1>Child Component:{props.username}</h1>
+            <h4>Coming form parent component input Data:{props.enterusername}</h4>
         </div>
     }
 
     const App = () => {
         var name = "Rahul"
+        let inputname = React.useRef("");
+        const [enterusername, setUsername] = React.useState("");
+        const submit = (event) => {
+            console.log('inputname', inputname.current.value);
+            setUsername(inputname.current.value);
+        }
         return <div>
             <h1>Parent component</h1>
-            <ChildComponent username={name} />
+            <input type="text" placeholder="enter name" ref={inputname} />
+            <button type="button" onClick={submit}>Submit</button>
+            <ChildComponent username={name} enterusername={enterusername} />
         </div>
     }
 
