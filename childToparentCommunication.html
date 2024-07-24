@@ -1,0 +1,44 @@
+<script src="react.development.js"></script>
+<script src="babel.min.js"></script>
+<script src="react-dom.development.js"></script>
+
+
+<div id="root">
+
+</div>
+
+<script type="text/babel">
+
+    const ChildComponent = (props) => {
+        let inputname = React.useRef("");
+        const submit = () => {
+            // console.log('inputname', inputname.current.value);
+            props.fn(inputname.current.value);
+        }
+        return <div>
+            <h1>Child Component</h1>
+            <hr />
+            <h1>Child Component:{props.username}</h1>
+            <input type="text" placeholder="enter name" ref={inputname} />
+            <button type="button" onClick={submit}>Submit</button>
+        </div>
+    }
+
+    const App = () => {
+        var name = "Rahul"
+        const [inputData, setInputState] = React.useState('data not send yet');
+        const fnsubmit = (data) => {
+            setInputState(data);
+        }
+        return <div>
+            <h1>Parent component</h1>
+            <hr />
+            <h4>Coming data form child to parent component by call back input Data:<b>{inputData}</b></h4>
+            <ChildComponent username={name} fn={fnsubmit} />
+        </div>
+    }
+
+    const container = ReactDOM.createRoot(document.getElementById('root'));
+    container.render(<App />);
+
+</script>
