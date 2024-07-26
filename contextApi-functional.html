@@ -1,0 +1,105 @@
+<script src="react.development.js"></script>
+<script src="babel.min.js"></script>
+<script src="react-dom.development.js"></script>
+<style>
+    .adiv,
+    .bdiv,
+    .cdiv,
+    .ddiv,
+    .ediv {
+        margin: 10px;
+    }
+
+    .adiv {
+        border: 2px solid red;
+    }
+
+    .bdiv {
+        border: 2px solid black;
+
+    }
+
+    .cdiv {
+        border: 2px solid black;
+
+    }
+
+    .ddiv {
+        border: 2px solid rgb(25, 0, 255);
+
+    }
+
+    .ediv {
+        border: 2px solid rgb(25, 0, 255);
+
+    }
+</style>
+
+<div id="root">
+
+</div>
+
+<script type="text/babel">
+    //1. create a context outside of component like store same for both component
+    const ctx = React.createContext();
+
+    const A = () => {
+        const retriveCtxData = React.useContext(ctx);
+        return <div className="adiv">
+            <h1>A:{retriveCtxData[0]}</h1>
+            <B />
+            <C />
+        </div>
+    }
+
+    const B = () => {
+        const retriveCtxData = React.useContext(ctx);
+
+        return <div className="bdiv">
+            <h1>B:{retriveCtxData[1]}</h1>
+            <D />
+        </div>
+    }
+
+    const C = () => {
+        const retriveCtxData = React.useContext(ctx);
+
+        return <div className="cdiv">
+            <h1>C:{retriveCtxData[2]}</h1>
+            <E />
+
+        </div>
+    }
+
+    const D = () => {
+        const retriveCtxData = React.useContext(ctx);
+
+        return <div className="ddiv">
+            <h1>D:<em>{retriveCtxData[2]} </em></h1>
+        </div>
+    }
+
+    const E = () => {
+        const retriveCtxData = React.useContext(ctx);
+        return <div className="ediv">
+
+            <h1>E: <em>{retriveCtxData[1]}</em></h1>
+        </div>
+    }
+
+    const App = () => {
+        // 3. give one value to conetect Api like give data same for both component
+        const playerName = ['sachin', 'dhoni', 'virat']
+        return <div>
+            <h1>App:</h1>
+            {/* 2.addding the context in App component*/}
+            <ctx.Provider value={playerName}>
+                <A />
+            </ctx.Provider>
+        </div>
+    }
+
+    const container = ReactDOM.createRoot(document.getElementById('root'));
+    container.render(<App />);
+
+</script>

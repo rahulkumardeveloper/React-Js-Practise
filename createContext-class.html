@@ -1,0 +1,106 @@
+<script src="react.development.js"></script>
+<script src="babel.min.js"></script>
+<script src="react-dom.development.js"></script>
+<style>
+    .adiv,
+    .bdiv,
+    .cdiv,
+    .ddiv,
+    .ediv {
+        margin: 10px;
+    }
+
+    .adiv {
+        border: 2px solid red;
+    }
+
+    .bdiv {
+        border: 2px solid black;
+
+    }
+
+    .cdiv {
+        border: 2px solid black;
+
+    }
+
+    .ddiv {
+        border: 2px solid rgb(25, 0, 255);
+
+    }
+
+    .ediv {
+        border: 2px solid rgb(25, 0, 255);
+
+    }
+</style>
+
+<div id="root">
+
+</div>
+
+<script type="text/babel">
+    //1. create a context outside of component like store
+    const ctx = React.createContext();
+
+    class A extends React.Component {
+        render() {
+            return <div className="adiv">
+                <h1>A:</h1>
+                <B />
+                <C />
+            </div>
+        }
+    }
+    class B extends React.Component {
+        render() {
+            return <div className="bdiv">
+                <h1>B:</h1>
+                <D />
+            </div>
+        }
+    }
+    class C extends React.Component {
+        render() {
+            return <div className="cdiv">
+                <h1>C:</h1>
+                <E />
+
+            </div>
+        }
+    }
+    class D extends React.Component {
+        render() {
+            return <div className="ddiv">
+                <h1>D:<em> {this.context}</em></h1>
+            </div>
+        }
+    }
+    D.contextType = ctx;
+    class E extends React.Component {
+        render() {
+            return <div className="ediv">
+                <h1>E: <em>{this.context}</em></h1>
+            </div>
+        }
+    }
+    E.contextType = ctx;
+
+    class App extends React.Component {
+        render() {
+            // 3. give one value to conetect Api like give data
+            const name = "data comming from App component"
+            return <div>
+                <h1>App:</h1>
+                {/* 2.addding the context in App component*/}
+                <ctx.Provider value={name}>
+                    <A />
+                </ctx.Provider>
+            </div>
+        }
+    }
+
+    const container = ReactDOM.createRoot(document.getElementById('root'));
+    container.render(<App />);
+
+</script>
