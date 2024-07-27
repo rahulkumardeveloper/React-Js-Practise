@@ -1,0 +1,51 @@
+<script src="react.development.js"></script>
+<script src="babel.min.js"></script>
+<script src="react-dom.development.js"></script>
+
+<div id="root">
+
+</div>
+
+<script type="text/babel">
+    class A extends React.Component{
+        componentWillUnmount(){
+        console.log("I am going to unmounting or unload component")
+    };
+        render(){
+            return <div>
+                <h1>This is A component</h1>
+                </div>
+        }
+    }
+
+class App extends React.Component{
+   static getDerivedStateFromProps=()=>{
+        console.log("getDrivedStateFromProps called");
+    }
+    state={
+        isshow:true
+    }
+
+
+    onToggle=()=>{
+        this.setState({
+            isshow: !this.state.isshow
+        })
+
+    }
+    render(){
+        console.log("render called");
+        return <div>
+            <h1>App component</h1>
+             {this.state.isshow &&<h3><A/></h3>}
+             <button onClick={this.onToggle}>Toggle</button>
+            </div>
+    }
+}
+
+const container=ReactDOM.createRoot(document.getElementById("root"));
+
+container.render(<App/>);
+
+
+</script>
