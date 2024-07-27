@@ -1,0 +1,54 @@
+<script src="react.development.js"></script>
+<script src="babel.min.js"></script>
+<script src="react-dom.development.js"></script>
+
+<div id="root">
+
+</div>
+
+<script type="text/babel">
+
+const App =()=>{
+    // debugger;
+
+    const [data,setData]=React.useState(0);
+    const [name,setName]=React.useState('rahul');
+     const onIncrement=()=>{
+            setData(data+1);
+        }
+            React.useEffect(()=>{
+                console.log("equal componentDidMount")
+            },[]);
+
+            React.useEffect(()=>{
+                if(data!=0)
+               {
+                   console.log("equal componentDidUpdate :count")
+            } 
+            },[data,name]);
+
+            React.useEffect(()=>{
+                if(name!='rahul')
+               {
+                console.log("equal componentDidUpdate: name")
+
+            } 
+            },[data,name]);
+
+        return <div>
+            <h1>Functional Component using useEffect() updatingPhase</h1>
+            <hr/>
+            <p>Count:{data}</p>
+            <button type="button" onClick={onIncrement}>Increment</button>
+            <h4>Brother's Name:{name}</h4>
+            <button type="button" onClick={()=>setName("Sahul")}>Name-Change</button>
+            </div>
+    }
+
+
+const container=ReactDOM.createRoot(document.getElementById("root"));
+
+container.render(<App/>);
+
+
+</script>

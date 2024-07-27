@@ -1,0 +1,48 @@
+<script src="react.development.js"></script>
+<script src="babel.min.js"></script>
+<script src="react-dom.development.js"></script>
+
+<div id="root">
+
+</div>
+
+<script type="text/babel">
+
+class App extends React.Component{
+   static getDerivedStateFromProps=()=>{
+        console.log("getDrivedStateFromProps called");
+    }
+     state={
+            count:0
+        };
+        shouldComponentUpdate(){
+            console.log("shouldComponentUpdate");
+            return true;
+        }
+        getSnapshotBeforeUpdate(){
+            console.log("countValue");
+        }
+     onIncrement=()=>{
+            this.setState({
+                count:this.state.count+1
+            })
+        }
+    render(){
+        console.log("render called");
+        return <div>
+            <h1>App component</h1>
+             <h3>Count:{this.state.count}</h3>
+             <button onClick={this.onIncrement}>Increment</button>
+            </div>
+    }
+    componentDidUpdate(){
+        console.log("componentDidUpdate");
+    }
+}
+
+const container=ReactDOM.createRoot(document.getElementById("root"));
+
+container.render(<App/>);
+
+
+</script>
