@@ -1,0 +1,46 @@
+<script src="react.development.js"></script>
+<script src="babel.min.js"></script>
+<script src="react-dom.development.js"></script>
+
+<div id="root">
+
+</div>
+
+<script type="text/babel">
+    const A=()=>{
+return <div>
+    <h1>A component is called.</h1>
+    </div>
+    }
+
+const App =()=>{
+    const [isShow,setIsShow]=React.useState(true);
+            React.useEffect(()=>{
+                console.log("equal componentDidMount")
+            },[]);
+
+            React.useEffect(()=>{
+                return ()=>{
+                    console.log("component will unmount")
+                }
+            },[])
+
+           const onLoad=()=>{
+             setIsShow(!isShow);
+            }
+
+        return <div>
+            <h1>Functional Component using useEffect() unMounting</h1>
+            <hr/>
+            { isShow && <A/>}
+            <button type="button" onClick={onLoad}>Called Component</button>
+            </div>
+    }
+
+
+const container=ReactDOM.createRoot(document.getElementById("root"));
+
+container.render(<App/>);
+
+
+</script>
