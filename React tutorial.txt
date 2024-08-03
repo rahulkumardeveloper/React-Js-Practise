@@ -1,0 +1,8 @@
+How to upload a project or publics
+----------------------------------
+1. install node js s/w
+2.install git s/w
+3. create account in AWS (debit card)
+4. create account on github
+5. create account on heroku
+6. create account on azure (debit card)
