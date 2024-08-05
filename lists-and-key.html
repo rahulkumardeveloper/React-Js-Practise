@@ -7,16 +7,31 @@
 </div>
 
 <script type="text/babel">
-    const A=()=>{
-return <div>
-    <h1>A component is called.</h1>
-    </div>
+
+    const A=(props)=>{
+
+            return <div>
+                        {props.data.map((arr)=>{
+                    return <p>{arr}</p> 
+                        })
+                    }
+                    <div>
+                        <select name="" id="">
+                            {props.data.map((arr)=>{
+                    return <option>{arr}</option> 
+                        })
+                    }
+                            </select>
+                        </div>
+                </div>
     }
 
 const App =()=>{
+    let listData=["rahul","kumar","gautam","sahul"]
         return <div>
-            <h1>List and Key concept</h1>
+            <h1>List and Key Concept/ Itrations</h1>
             <hr/>
+            <A data={listData}/>
             </div>
     }
 
