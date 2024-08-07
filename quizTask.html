@@ -1,6 +1,16 @@
 <script src="react.development.js"></script>
 <script src="babel.min.js"></script>
 <script src="react-dom.development.js"></script>
+<style>
+  .timer {
+    position: fixed;
+    top: 0;
+    right: 0px;
+    font-size: 30px;
+    line-height: 7px;
+    color: red;
+  }
+</style>
 
 <div id="root"></div>
 
@@ -29,36 +39,71 @@
 
     const answerOption = ["A", "B", "C", "D"];
     const answer = {};
-    const onSubmit = () => {
-      console.log(answer);
+    const correctAnswer = { 1: "B", 2: "A", 3: "ABC" };
+    var countMark = 0;
+    var intervalId;
+    const [isSubmit, setSubmit] = React.useState(false);
+    const [isTimer, setTimer] = React.useState(10);
 
+    React.useEffect(()=>{
+      intervalId = setInterval(()=>{
+        setTimer(prevTimer => {          
+          let newTimer= prevTimer - 1
+          if(newTimer==0){
+            console.log("component did mount",answer);
+            onSubmit();
+          }
+          return newTimer;
+        });
+
+     },1000);
+     return () => clearInterval(intervalId);
+    },[]);
+
+
+    const onSubmit = () => {
+      Object.keys(answer).forEach((value, index) => {
+        if (answer[value] === correctAnswer[value]) {
+          countMark=countMark+1;
+        }
+      });
+      setSubmit({
+        isSubmit: true,
+      });
+      console.log("onsubmit",answer);
+      alert(`You Got the marks: ${countMark}`);
     };
 
-
     const onRadioChanges = (event) => {
-      const { name, value, type ,checked} = event.target;
+      const { name, value, type, checked } = event.target;
 
       if (type === "checkbox") {
-        const optionStr=answer[name];
-        const optionArray = optionStr ? optionStr.split('') : [];
-          if(checked){
+        let optionStr = answer[name];
+        let optionArray = optionStr ? optionStr.split("") : [];
+
+        if (checked) {
+          // Add the value to the array if it isn't already there
+          if (!optionArray.includes(value)) {
             optionArray.push(value);
-            console.log(optionArray);
           }
-        else{
-          
+        } else {
+          // Remove the value from the array if it's unchecked
+          countMark = 0;
+          optionArray = optionArray.filter((item) => item !== value);
         }
 
+        answer[name] = optionArray.sort().join(""); // Convert array back to string if needed
+        console.log("checked",answer);
       } else {
         answer[name] = value;
-        console.log(answer)
-
+        console.log("radioButton",answer);
       }
     };
 
     return (
       <div>
         <h1>Quiz Application</h1>
+        <h2 className="timer">{isTimer}</h2>
         <hr />
         {questionData.map((obj, index) => {
           let { id, quesName, options, type } = obj;
@@ -72,6 +117,7 @@
                   <p>
                     {type == "S" && (
                       <input
+                        disabled={isSubmit}
                         type="radio"
                         name={id}
                         onChange={onRadioChanges}
@@ -80,6 +126,7 @@
                     )}
                     {type == "M" && (
                       <input
+                        disabled={isSubmit}
                         type="checkbox"
                         name={id}
                         onChange={onRadioChanges}
@@ -93,9 +140,12 @@
             </div>
           );
         })}
-        <button type="button" onClick={onSubmit}>
-          Submit
-        </button>
+
+        {!isSubmit && (
+          <button type="button" onClick={onSubmit}>
+            Submit
+          </button>
+        )}
       </div>
     );
   };
