@@ -1,0 +1,106 @@
+<script src="react.development.js"></script>
+<script src="babel.min.js"></script>
+<script src="react-dom.development.js"></script>
+
+<div id="root"></div>
+
+<script type="text/babel">
+  const App = () => {
+    const questionData = [
+      {
+        id: 1,
+        quesName: "Can we changes the props values in child componenent?.",
+        options: ["Yes", "No"],
+        type: "S",
+      },
+      {
+        id: 2,
+        quesName: "How to pass data from child to parent component.?",
+        options: ["Callback", "props", "state", "none"],
+        type: "S",
+      },
+      {
+        id: 3,
+        quesName: "How many way to pass data between component.?",
+        options: ["Callback", "props", "children", "none"],
+        type: "M",
+      },
+    ];
+
+    const answerOption = ["A", "B", "C", "D"];
+    const answer = {};
+    const onSubmit = () => {
+      console.log(answer);
+
+    };
+
+
+    const onRadioChanges = (event) => {
+      const { name, value, type ,checked} = event.target;
+
+      if (type === "checkbox") {
+        const optionStr=answer[name];
+        const optionArray = optionStr ? optionStr.split('') : [];
+          if(checked){
+            optionArray.push(value);
+            console.log(optionArray);
+          }
+        else{
+          
+        }
+
+      } else {
+        answer[name] = value;
+        console.log(answer)
+
+      }
+    };
+
+    return (
+      <div>
+        <h1>Quiz Application</h1>
+        <hr />
+        {questionData.map((obj, index) => {
+          let { id, quesName, options, type } = obj;
+          return (
+            <div>
+              <h3>
+                {id}.{quesName}
+              </h3>
+              {options.map((option, index) => {
+                return (
+                  <p>
+                    {type == "S" && (
+                      <input
+                        type="radio"
+                        name={id}
+                        onChange={onRadioChanges}
+                        value={answerOption[index]}
+                      ></input>
+                    )}
+                    {type == "M" && (
+                      <input
+                        type="checkbox"
+                        name={id}
+                        onChange={onRadioChanges}
+                        value={answerOption[index]}
+                      ></input>
+                    )}
+                    {option}
+                  </p>
+                );
+              })}
+            </div>
+          );
+        })}
+        <button type="button" onClick={onSubmit}>
+          Submit
+        </button>
+      </div>
+    );
+  };
+
+  const container = ReactDOM.createRoot(document.getElementById("root"));
+
+  container.render(<App />);
+</script>
